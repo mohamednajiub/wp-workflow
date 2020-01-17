@@ -26,8 +26,8 @@ let scss = `${root}/src/sass`,
 let js_src = `${root}/src/js`,
     js_dest = `${root}/dest/js`;
 
-let image_src = `${root}/src/images`,
-    image_dest = `${root}/dest/images`;
+let images_src = `${root}/src/images`,
+    images_dest = `${root}/dest/images`;
 
 const production = yargs.argv.prod;
 
@@ -57,6 +57,17 @@ export const scripts = () => {
         .pipe(concat())
         .pipe(uglify())
         .pipe(dest(js_dest))
+}
+
+export const images = () => {
+    return src(images_src)
+        .pipe(changed(images_dest))
+        .pipe(imagemin([
+            imagemin.gifsicle({interlaced: true}),
+            imagemin.jpegtran({progressive: true}),
+            imagemin.optipng({optimizationLevel: 5}),
+        ]))
+        .pipe(dest(images_dest))
 }
 
 export const watchForChanges = () => {
