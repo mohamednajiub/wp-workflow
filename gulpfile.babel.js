@@ -21,7 +21,7 @@ let root = `../${theme_name}`;
 let php_files = `${root}/**/*.php`,
     style_files = `${scss}/**/*.scss`
 
-let scss = `${root}/sass`,
+let scss = `${root}/src/sass`,
     css_dest = `${root}/css/`;
 
 let js_src = `${root}/src/js`,
