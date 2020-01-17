@@ -44,8 +44,8 @@ export const styles = () => {
         .pipe(sass({
             outputStyle: 'expanded'
         }).on('error', sass.logError))
-        .pipe(autoPrefixer('last 5 versions'))
-        .pipe(gulpif(!production, sourcemaps.write()))
+        .pipe(autoPrefixer('last 7 versions'))
+        .pipe(gulpif(!production, sourcemaps.write(`/`)))
         .pipe(gulpif(production, cleanCss({
             compatibility: 'ie8'
         })))
