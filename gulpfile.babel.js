@@ -5,7 +5,6 @@ import cleanCss from 'gulp-clean-css';
 import gulpif from 'gulp-if';
 import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
-import autoprefixer from 'autoprefixer';
 import browserSync from "browser-sync";
 import concat from 'gulp-concat';
 import imagemin from 'gulp-imagemin';
@@ -32,10 +31,6 @@ let image_src = `${root}/src/images`,
 
 const production = yargs.argv.prod;
 
-
-
-
-
 export const styles = () => {
     return src(`${scss}/main.scss`)
         .pipe(gulpif(!production, sourcemaps.init({
@@ -44,12 +39,16 @@ export const styles = () => {
         .pipe(sass({
             outputStyle: 'expanded'
         }).on('error', sass.logError))
-        .pipe(autoPrefixer('last 7 versions'))
+        .pipe(autoPrefixer({grid: true}))
         .pipe(gulpif(!production, sourcemaps.write(`/`)))
-        .pipe(gulpif(production, cleanCss({
-            compatibility: 'ie8'
-        })))
-        .pipe(dest(css_dest));
+        .pipe(
+            gulpif( production, cleanCss({
+                    compatibility: 'ie8'
+                })
+            )
+        )
+        .pipe(dest(css_dest))
+    ;
 }
 
 
