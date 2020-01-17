@@ -52,6 +52,13 @@ export const styles = () => {
 }
 
 
+export const scripts = () => {
+    return src()
+        .pipe(concat())
+        .pipe(uglify())
+        .pipe(dest(js_dest))
+}
+
 export const watchForChanges = () => {
     watch('scss/**/*.scss', styles);
 }
