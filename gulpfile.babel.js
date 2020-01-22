@@ -35,14 +35,17 @@ import stripDebug from 'gulp-strip-debug';
 /********** images tools **********/
 import imagemin from 'gulp-imagemin';
 
+
+/********** Theme initialization **********/
 let theme_name = 'mohamednajiub';
 
 let root = `../${theme_name}`;
 
-let php_files = `${root}/**/*.php`,
-    style_files = `${scss}/**/*.scss`;
+let php_files = `${root}/**/*.php`;
+    
 
-let scss = `${root}/src/sass`,
+let styles_src = `${root}/src/sass`,
+    style_files = `${styles_src}/**/*.scss`;
     css_dest = `${root}/css/`;
 
 let js_src = `${root}/src/js`,
@@ -57,7 +60,7 @@ let browser_sync = browserSync.create(),
     reload = browser_sync.reload()
 
 export const styles = () => {
-    return src(`${scss}/main.scss`)
+    return src(`${styles_src}/main.scss`)
         .pipe(gulpif(!production, sourcemaps.init({
             loadMaps: true
         })))
