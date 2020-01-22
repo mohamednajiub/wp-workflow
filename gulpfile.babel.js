@@ -35,6 +35,20 @@ import stripDebug from 'gulp-strip-debug';
 /********** images tools **********/
 import imagemin from 'gulp-imagemin';
 
+/********** tools initialization **********/
+
+// create production from command line
+const production = yargs.argv.prod;
+
+// create browser
+let browser_sync = browserSync.create(),
+    // reload browsers
+    reload = browser_sync.reload();
+
+// source map initializing
+let sourcemaps_init = sourcemaps.init({
+    loadMaps: true
+});
 
 /********** Theme initialization **********/
 let theme_name = 'mohamednajiub';
@@ -54,16 +68,9 @@ let js_src = `${root}/src/js`,
 let images_src = `${root}/src/images`,
     images_dest = `${root}/dest/images`;
 
-const production = yargs.argv.prod;
-
-let browser_sync = browserSync.create(),
-    reload = browser_sync.reload()
-
 export const styles = () => {
     return src(`${styles_src}/main.scss`)
-        .pipe(gulpif(!production, sourcemaps.init({
-            loadMaps: true
-        })))
+        .pipe(gulpif(!production, sourcemaps_init))
         .pipe(sass({
             outputStyle: 'expanded'
         }).on('error', sass.logError))
@@ -87,9 +94,11 @@ export const styles = () => {
 
 
 export const scripts = () => {
-    return src()
-        .pipe(concat())
-        .pipe(uglify())
+    return src(`${js_src}/**/*.js`)
+        .pipe(gulpif(!production, sourcemaps_init))
+        .pipe(concat(`${js_dest}/main.js`))
+        .pipe(gulpif(!production, sourcemaps.write(`/`)))
+        .pipe(gulpif(!production, uglify()))
         .pipe(dest(js_dest))
 }
 
