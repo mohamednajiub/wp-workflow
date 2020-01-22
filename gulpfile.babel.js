@@ -3,18 +3,37 @@ import {
     dest,
     watch
 } from 'gulp';
-import yargs from 'yargs';
-import sass from 'gulp-sass';
-import cleanCss from 'gulp-clean-css';
-import gulpif from 'gulp-if';
-import sourcemaps from 'gulp-sourcemaps';
-import browserSync from "browser-sync";
-import concat from 'gulp-concat';
-import imagemin from 'gulp-imagemin';
-import changed from 'gulp-changed';
-import uglify from 'gulp-uglify';
-import autoPrefixer from 'gulp-autoprefixer';
 
+/********** global tools **********/
+// yargs used to catch arguments from command line to build interactive command line
+import yargs from 'yargs';
+// gulp if is used to check conditions
+import gulpif from 'gulp-if';
+// changed is used to check changes in files
+import changed from 'gulp-changed';
+// browser sync used to sync browsers each other and auto reload after code changes
+import browserSync from "browser-sync";
+// source map used to create source map files to css and js
+import sourcemaps from 'gulp-sourcemaps';
+
+/********** style tools **********/
+// gulp sass used to convert sass to css
+import sass from 'gulp-sass';
+// auto prefixer used to add css support for old browsers
+import autoPrefixer from 'gulp-autoprefixer';
+// clean css used to minify css
+import cleanCss from 'gulp-clean-css';
+
+/********** javascript tools **********/
+// concat used to collect js files to one js file
+import concat from 'gulp-concat';
+// uglify used to minify js file
+import uglify from 'gulp-uglify';
+// remove debugger and console.log from production
+import stripDebug from 'gulp-strip-debug';
+
+/********** images tools **********/
+import imagemin from 'gulp-imagemin';
 
 let theme_name = 'mohamednajiub';
 
@@ -59,8 +78,8 @@ export const styles = () => {
                 console.log(`minified file size ${details.name}: ${details.stats.minifiedSize}`);
             }))
         )
-
-        .pipe(dest(css_dest));
+        .pipe(dest(css_dest))
+    ;
 }
 
 
@@ -72,7 +91,7 @@ export const scripts = () => {
 }
 
 export const images = () => {
-    return src(images_src)
+    return src(`${images_src}/**/*`)
         .pipe(changed(images_dest))
         .pipe(imagemin([
             imagemin.gifsicle({
