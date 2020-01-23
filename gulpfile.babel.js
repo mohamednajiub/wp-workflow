@@ -42,10 +42,10 @@ import imagemin from 'gulp-imagemin';
 // create production from command line
 const production = yargs.argv.prod;
 
-// create browser
-let browser_sync = browserSync.create(),
+// create server
+let server = browserSync.create(),
     // reload browsers
-    reload = browser_sync.reload();
+    reload = server.reload();
 
 // source map initializing
 let sourcemaps_init = sourcemaps.init({
@@ -114,7 +114,7 @@ export const scripts = () => {
             mode: production ? 'production' : 'development',
             devtool: !production ? 'source-map' : false,
             output: {
-                filename: production? 'main.bundle.min.js' : 'main.bundle.js'
+                filename: production ? 'main.bundle.min.js' : 'main.bundle.js'
             },
         }))
         .pipe(gulpif(production, stripDebug()))
@@ -148,6 +148,19 @@ export const images = () => {
         ]))
         .pipe(dest(images_dest))
 }
+
+/********** browser sync function **********/
+export const serve = (done) => {
+    server.init({
+        proxy: `http://localhost/${theme_name}`
+    });
+    done();
+}
+
+export const reload = (done) => {
+    reload;
+    done();
+};
 
 /********** watch changes function **********/
 export const watchForChanges = () => {
