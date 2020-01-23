@@ -31,10 +31,6 @@ import cleanCss from 'gulp-clean-css';
 /********** javascript tools **********/
 // webpack stream used to make webpack works with gulp
 import webpack from 'webpack-stream';
-// concat used to collect js files to one js file
-import concat from 'gulp-concat';
-// uglify used to minify js file
-import uglify from 'gulp-uglify';
 // remove debugger and console.log from production
 import stripDebug from 'gulp-strip-debug';
 
