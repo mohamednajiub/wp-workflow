@@ -15,6 +15,8 @@ import changed from 'gulp-changed';
 import browserSync from "browser-sync";
 // source map used to create source map files to css and js
 import sourcemaps from 'gulp-sourcemaps';
+// rename used to change name of files
+import rename from "gulp-rename";
 
 /********** style tools **********/
 // gulp sass used to convert sass to css
@@ -59,7 +61,7 @@ let php_files = `${root}/**/*.php`;
     
 
 let styles_src = `${root}/src/sass`,
-    style_files = `${styles_src}/**/*.scss`;
+    // style_files = `${styles_src}/**/*.scss`,
     css_dest = `${root}/css/`;
 
 let js_src = `${root}/src/js`,
@@ -78,17 +80,18 @@ export const styles = () => {
             grid: true
         }))
         .pipe(gulpif(!production, sourcemaps.write(`/`)))
+        .pipe(dest(css_dest))
         .pipe(
             gulpif(production, cleanCss({
                 compatibility: 'ie8',
-                debug: true,
-                path: '/main.min.css'
+                debug: false,
             }, (details) => {
                 console.log(`original file size ${details.name}: ${details.stats.originalSize}`);
                 console.log(`minified file size ${details.name}: ${details.stats.minifiedSize}`);
             }))
         )
-        .pipe(dest(css_dest))
+        .pipe(gulpif(production,rename('main.min.css')))
+        .pipe(gulpif(production,dest(css_dest)))
     ;
 }
 
