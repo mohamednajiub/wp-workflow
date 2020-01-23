@@ -58,14 +58,14 @@ let theme_name = 'mohamednajiub';
 let root = `../${theme_name}`;
 
 let php_files = `${root}/**/*.php`;
-    
+
 
 let styles_src = `${root}/src/sass`,
     // style_files = `${styles_src}/**/*.scss`,
     css_dest = `${root}/css/`;
 
-let js_src = `${root}/src/js`,
-    js_dest = `${root}/dest/js`;
+let js_src = `${root}/src/scripts`,
+    js_dest = `${root}/js`;
 
 let images_src = `${root}/src/images`,
     images_dest = `${root}/dest/images`;
@@ -90,19 +90,20 @@ export const styles = () => {
                 console.log(`minified file size ${details.name}: ${details.stats.minifiedSize}`);
             }))
         )
-        .pipe(gulpif(production,rename('main.min.css')))
-        .pipe(gulpif(production,dest(css_dest)))
-    ;
+        .pipe(gulpif(production, rename('main.min.css')))
+        .pipe(gulpif(production, dest(css_dest)));
 }
 
 
 export const scripts = () => {
     return src(`${js_src}/**/*.js`)
         .pipe(gulpif(!production, sourcemaps_init))
-        .pipe(concat(`${js_dest}/main.js`))
+        .pipe(concat('/main.js'))
         .pipe(gulpif(!production, sourcemaps.write(`/`)))
-        .pipe(gulpif(!production, uglify()))
         .pipe(dest(js_dest))
+        .pipe(gulpif(production, uglify()))
+        .pipe(gulpif(production, rename('main.min.js')))
+        .pipe(gulpif(production, dest(js_dest)));
 }
 
 export const images = () => {
