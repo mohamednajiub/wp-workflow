@@ -68,7 +68,7 @@ let js_src = `${root}/src/scripts`,
     js_dest = `${root}/js`;
 
 let images_src = `${root}/src/images`,
-    images_dest = `${root}/dest/images`;
+    images_dest = `${root}/images`;
 
 export const styles = () => {
     return src(`${styles_src}/main.scss`)
@@ -110,15 +110,15 @@ export const images = () => {
     return src(`${images_src}/**/*`)
         .pipe(changed(images_dest))
         .pipe(imagemin([
-            imagemin.gifsicle({
-                interlaced: true
-            }),
-            imagemin.jpegtran({
-                progressive: true
-            }),
-            imagemin.optipng({
-                optimizationLevel: 5
-            }),
+            imagemin.gifsicle({interlaced: true}),
+            imagemin.mozjpeg({quality: 75, progressive: true}),
+            imagemin.optipng({optimizationLevel: 5}),
+            imagemin.svgo({
+                plugins: [
+                    {removeViewBox: true},
+                    {cleanupIDs: false}
+                ]
+            })
         ]))
         .pipe(dest(images_dest))
 }
