@@ -95,7 +95,8 @@ export const styles = () => {
             }))
         )
         .pipe(gulpif(production, rename('main.min.css')))
-        .pipe(gulpif(production, dest(css_dest)));
+        .pipe(gulpif(production, dest(css_dest)))
+        .pipe(server.stream());
 }
 
 /********** scripts function **********/
