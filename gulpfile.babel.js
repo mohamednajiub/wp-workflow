@@ -101,17 +101,6 @@ export const styles = () => {
 }
 
 /********** scripts function **********/
-// export const scripts = () => {
-//     return src(`${js_src}/**/*.js`)
-//         .pipe(gulpif(!production, sourcemaps_init))
-//         .pipe(concat('/main.js'))
-//         .pipe(gulpif(!production, sourcemaps.write(`/`)))
-//         .pipe(dest(js_dest))
-//         .pipe(gulpif(production, uglify()))
-//         .pipe(gulpif(production, rename('main.min.js')))
-//         .pipe(gulpif(production, dest(js_dest)));
-// }
-
 export const scripts = () => {
     return src(`${js_src}/main.js`)
         .pipe(webpack({
@@ -132,6 +121,7 @@ export const scripts = () => {
                 filename: production? 'main.bundle.min.js' : 'main.bundle.js'
             },
         }))
+        .pipe(gulpif(production, stripDebug()))
         .pipe(dest(js_dest));
 }
 
