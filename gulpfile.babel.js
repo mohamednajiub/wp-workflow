@@ -1,7 +1,9 @@
 import {
     src,
     dest,
-    watch
+    watch,
+    series,
+    parallel
 } from 'gulp';
 
 /********** global tools **********/
@@ -61,15 +63,18 @@ let php_files = `${root}/**/*.php`;
 
 
 let styles_src = `${root}/src/sass`,
-    // style_files = `${styles_src}/**/*.scss`,
+    style_files = `${styles_src}/**/*.scss`,
     css_dest = `${root}/css/`;
 
 let js_src = `${root}/src/scripts`,
+    js_files = `${js_src}/**/*.js`,
     js_dest = `${root}/js`;
 
 let images_src = `${root}/src/images`,
+    image_files = `${root}/src/images/**/*.{jpg,jpeg,png,svg,gif}`,
     images_dest = `${root}/images`;
 
+/********** styles function **********/
 export const styles = () => {
     return src(`${styles_src}/main.scss`)
         .pipe(gulpif(!production, sourcemaps_init))
@@ -94,7 +99,7 @@ export const styles = () => {
         .pipe(gulpif(production, dest(css_dest)));
 }
 
-
+/********** scripts function **********/
 export const scripts = () => {
     return src(`${js_src}/**/*.js`)
         .pipe(gulpif(!production, sourcemaps_init))
@@ -106,23 +111,41 @@ export const scripts = () => {
         .pipe(gulpif(production, dest(js_dest)));
 }
 
+/********** images function **********/
 export const images = () => {
     return src(`${images_src}/**/*`)
         .pipe(changed(images_dest))
         .pipe(imagemin([
-            imagemin.gifsicle({interlaced: true}),
-            imagemin.mozjpeg({quality: 75, progressive: true}),
-            imagemin.optipng({optimizationLevel: 5}),
+            imagemin.gifsicle({
+                interlaced: true
+            }),
+            imagemin.mozjpeg({
+                quality: 75,
+                progressive: true
+            }),
+            imagemin.optipng({
+                optimizationLevel: 5
+            }),
             imagemin.svgo({
-                plugins: [
-                    {removeViewBox: true},
-                    {cleanupIDs: false}
+                plugins: [{
+                        removeViewBox: true
+                    },
+                    {
+                        cleanupIDs: false
+                    }
                 ]
             })
         ]))
         .pipe(dest(images_dest))
 }
 
+/********** watch changes function **********/
 export const watchForChanges = () => {
-    watch('scss/**/*.scss', styles);
+    watch(style_files, styles);
+    watch(js_files, scripts);
+    watch(image_files, images);
 }
+
+export const dev = series(parallel(styles, scripts, images), watchForChanges)
+export const build = series(parallel(styles, scripts, images))
+export default dev;
