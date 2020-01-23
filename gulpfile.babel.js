@@ -53,6 +53,8 @@ let sourcemaps_init = sourcemaps.init({
 });
 
 /********** Theme initialization **********/
+let project_name = 'Xact';
+
 let theme_name = 'mohamednajiub';
 
 let root = `../${theme_name}`;
@@ -152,23 +154,24 @@ export const images = () => {
 /********** browser sync function **********/
 export const serve = (done) => {
     server.init({
-        proxy: `http://localhost/${theme_name}`
+        proxy: `http://localhost/${project_name}`
     });
     done();
 }
 
-export const reload = (done) => {
+export const reload_fun = (done) => {
     reload;
     done();
 };
 
 /********** watch changes function **********/
 export const watchForChanges = () => {
-    watch(style_files, styles);
-    watch(js_files, scripts);
-    watch(image_files, images);
+    watch(style_files, series(styles, reload_fun));
+    watch(js_files, series(scripts, reload_fun));
+    watch(image_files, series(images, reload_fun));
+    watch(php_files, reload_fun);
 }
 
-export const dev = series(parallel(styles, scripts, images), watchForChanges)
-export const build = series(parallel(styles, scripts, images))
+export const dev = series(parallel(styles, images, scripts), serve, watchForChanges);
+export const build = parallel(styles, scripts, images);
 export default dev;
