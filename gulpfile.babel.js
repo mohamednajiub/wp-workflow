@@ -29,6 +29,8 @@ import autoPrefixer from 'gulp-autoprefixer';
 import cleanCss from 'gulp-clean-css';
 
 /********** javascript tools **********/
+// webpack stream used to make webpack works with gulp
+import webpack from 'webpack-stream';
 // concat used to collect js files to one js file
 import concat from 'gulp-concat';
 // uglify used to minify js file
@@ -60,7 +62,6 @@ let theme_name = 'mohamednajiub';
 let root = `../${theme_name}`;
 
 let php_files = `${root}/**/*.php`;
-
 
 let styles_src = `${root}/src/sass`,
     style_files = `${styles_src}/**/*.scss`,
@@ -100,15 +101,38 @@ export const styles = () => {
 }
 
 /********** scripts function **********/
+// export const scripts = () => {
+//     return src(`${js_src}/**/*.js`)
+//         .pipe(gulpif(!production, sourcemaps_init))
+//         .pipe(concat('/main.js'))
+//         .pipe(gulpif(!production, sourcemaps.write(`/`)))
+//         .pipe(dest(js_dest))
+//         .pipe(gulpif(production, uglify()))
+//         .pipe(gulpif(production, rename('main.min.js')))
+//         .pipe(gulpif(production, dest(js_dest)));
+// }
+
 export const scripts = () => {
-    return src(`${js_src}/**/*.js`)
-        .pipe(gulpif(!production, sourcemaps_init))
-        .pipe(concat('/main.js'))
-        .pipe(gulpif(!production, sourcemaps.write(`/`)))
-        .pipe(dest(js_dest))
-        .pipe(gulpif(production, uglify()))
-        .pipe(gulpif(production, rename('main.min.js')))
-        .pipe(gulpif(production, dest(js_dest)));
+    return src(`${js_src}/main.js`)
+        .pipe(webpack({
+            module: {
+                rules: [{
+                    test: /\.js$/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: []
+                        }
+                    }
+                }]
+            },
+            mode: production ? 'production' : 'development',
+            devtool: !production ? 'source-map' : false,
+            output: {
+                filename: production? 'main.bundle.min.js' : 'main.bundle.js'
+            },
+        }))
+        .pipe(dest(js_dest));
 }
 
 /********** images function **********/
