@@ -1,7 +1,7 @@
 {
-  "name": "mohamed-najiub-theme",
+  "name": "wp-workflow",
   "version": "1.0.0",
-  "description": "Custom WordPress theme for portfolio",
+  "description": "Gulp workflow for WordPress development",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,19 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mohamednajiub/mohamednajiub.git"
+    "url": "git+https://github.com/mohamednajiub/wp-workflow.git"
   },
   "keywords": [
-    "WordPress-Portfolio",
-    "custom-theme",
-    "mohamednajiub-portfolio"
+    "gulp Workflow",
+    "wordpress workflow",
+    "wp-workflow"
   ],
   "author": "Mohamed Najiub",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mohamednajiub/mohamednajiub/issues"
+    "url": "https://github.com/mohamednajiub/wp-workflow/issues"
   },
-  "homepage": "https://github.com/mohamednajiub/mohamednajiub#readme",
+  "homepage": "https://github.com/mohamednajiub/wp-workflow#readme",
   "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
