@@ -53,9 +53,9 @@ let sourcemaps_init = sourcemaps.init({
 });
 
 /********** Theme initialization **********/
-let project_name = 'Xact';
+let project_name = process.argv[0];
 
-let theme_name = 'mohamednajiub';
+let theme_name = process.argv[1];
 
 let root = `../${theme_name}`;
 
