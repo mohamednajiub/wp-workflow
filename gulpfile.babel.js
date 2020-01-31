@@ -53,9 +53,9 @@ let sourcemaps_init = sourcemaps.init({
 });
 
 /********** Theme initialization **********/
-let project_name = process.argv[0];
+let project_name = 'Xact';
 
-let theme_name = process.argv[1];
+let theme_name = 'Xact';
 
 let root = `../${theme_name}`;
 
@@ -70,34 +70,46 @@ let js_src = `${root}/src/scripts`,
     js_dest = `${root}/js`;
 
 let images_src = `${root}/src/images`,
-    image_files = `${root}/src/images/**/*.{jpg,jpeg,png,svg,gif}`,
+    image_files = `${images_src}/**/*.{jpg,jpeg,png,svg,gif}`,
     images_dest = `${root}/images`;
 
 /********** styles function **********/
 export const styles = () => {
-    return src(`${styles_src}/main.scss`)
-        .pipe(gulpif(!production, sourcemaps_init))
+    return src(`${styles_src}/main.scss`, {
+            allowEmpty: true
+        })
+        .pipe(gulpif(!production, sourcemaps.init({
+            loadMaps: true
+        })))
         .pipe(sass({
-            outputStyle: 'expanded'
+            outputStyle: 'expanded',
+            errLogToConsole: true
         }).on('error', sass.logError))
         .pipe(autoPrefixer({
-            grid: true
+            grid: true,
+            browsers: [
+                'last 5 chrome version',
+                'last 5 firefox version',
+                'last 5 safari version',
+                'last 5 ie version'
+            ]
         }))
         .pipe(gulpif(!production, sourcemaps.write(`/`)))
         .pipe(dest(css_dest))
-        .pipe(
-            gulpif(production, cleanCss({
-                compatibility: 'ie8',
-                debug: false,
-            }, (details) => {
-                console.log(`original file size ${details.name}: ${details.stats.originalSize}`);
-                console.log(`minified file size ${details.name}: ${details.stats.minifiedSize}`);
-            }))
-        )
+        .pipe(gulpif(production, cleanCss({
+            compatibility: 'ie8'
+        })))
         .pipe(gulpif(production, rename('main.min.css')))
         .pipe(gulpif(production, dest(css_dest)))
         .pipe(server.stream());
 }
+
+// export const copy_styles = () => {
+//     return src([
+//         `${styles_src}/base/normalize.css`,
+//         `${styles_src}/layout/bootstrap-grid.min.css`
+//     ]).pipe(dest(css_dest))
+// }
 
 /********** scripts function **********/
 export const scripts = () => {
@@ -155,7 +167,10 @@ export const images = () => {
 /********** browser sync function **********/
 export const serve = (done) => {
     server.init({
-        proxy: `http://localhost/${project_name}`
+        proxy: `http://localhost/${project_name}`,
+        snippetOptions: {
+            ignorePaths: ["wp-admin/**"]
+        },
     });
     done();
 }
@@ -167,7 +182,7 @@ export const reload_fun = (done) => {
 
 /********** watch changes function **********/
 export const watchForChanges = () => {
-    watch(style_files, series(styles, reload_fun));
+    watch(style_files, styles);
     watch(js_files, series(scripts, reload_fun));
     watch(image_files, series(images, reload_fun));
     watch(php_files, reload_fun);
