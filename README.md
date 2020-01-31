@@ -1,3 +1,6 @@
+[![GitHub](https://img.shields.io/github/issues/mohamednajiub/wp-workflow?style=flat-square)](https://github.com/mohamednajiub/wp-workflow/issues/) [![GitHub](https://img.shields.io/github/forks/mohamednajiub/wp-workflow?style=social)](https://github.com/mohamednajiub/wp-workflow/network/members) [![GitHub](https://img.shields.io/github/license/mohamednajiub/wp-workflow?style=flat-square
+)](https://github.com/mohamednajiub/wp-workflow/blob/master/LICENSE)
+
 # WP-Workflow
 
 WP Workflow is a powerful Gulp workflow for making Developing WordPress themes easier and productivity ⌛.
