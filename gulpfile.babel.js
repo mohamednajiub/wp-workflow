@@ -20,6 +20,7 @@ import sourcemaps from 'gulp-sourcemaps';
 // rename used to change name of files
 import rename from "gulp-rename";
 
+import {theme_name, project_name} from './bin/init';
 /********** style tools **********/
 // gulp sass used to convert sass to css
 import sass from 'gulp-sass';
@@ -53,9 +54,9 @@ let sourcemaps_init = sourcemaps.init({
 });
 
 /********** Theme initialization **********/
-let project_name = 'Xact';
+// let project_name = 'Xact';
 
-let theme_name = 'Xact';
+// let theme_name = 'Xact';
 
 let root = `../${theme_name}`;
 
