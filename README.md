@@ -1,0 +1,38 @@
+# WP-Workflow
+
+WP Workflow is a powerful Gulp workflow for making Developing WordPress themes easier and productivity ⌛.
+
+## WP-Workflow Capabilities
+
+What WP-workflow can do?
+
+- ### CSS Features
+
+  - convert sass to css.
+  - add auto prefixes to css for last 5 versions of browsers.
+  - create .map file for css if you are on development mode.
+  - create .min file for css if you are in production mode.
+
+- ### JS Features
+
+  - convert ES6 to ES5.
+  - create .map file for JS if you are on development mode.
+  - create .min file for JS if you are in production mode.
+  - remove console.log and debuggers from JS if you are in production mode.
+
+- ### Images Features
+
+  - compress static images.
+  - move comppresed static images from src folder to the root folder.
+
+- ### Live Server Features
+
+  - open live server after finish all basic tasks "styles, scripts, images".
+  - reload server if there is changes in any files or folder.
+
+## How to use
+
+1- `git clone https://github.com/mohamednajiub/wp-workflow.git`.
+2- `cd wp-workflow`.
+3- change project name and theme name variables in gulp file and save it.
+4- run `npm start` and then start development.
