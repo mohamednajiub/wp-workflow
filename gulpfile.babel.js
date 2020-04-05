@@ -20,10 +20,8 @@ import sourcemaps from 'gulp-sourcemaps';
 // rename used to change name of files
 import rename from "gulp-rename";
 
-// import {
-// 	theme_name,
-// 	project_name
-// } from './bin/init';
+const config = require('./config.json');
+
 /********** style tools **********/
 // gulp sass used to convert sass to css
 import sass from 'gulp-sass';
@@ -52,9 +50,9 @@ let server = browserSync.create(),
 	reload = server.reload();
 
 /********** Theme initialization **********/
-let project_name = 'mohamed-najiub-website';
+let project_name = config.project_name;
 
-let theme_name = 'mohamednajiub';
+let theme_name = config.theme_name;
 
 let root = `../${theme_name}`;
 
@@ -172,6 +170,7 @@ export const serve = (done) => {
 		snippetOptions: {
 			ignorePaths: ["wp-admin/**"]
 		},
+		port: config.server_port
 	});
 	done();
 }
