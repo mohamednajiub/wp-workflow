@@ -55,5 +55,8 @@ module.exports = () => {
 			const init_data = require('./edit_config');
 			init_data()
 		}
-	)
+	).catch(error => {
+		console.log(chalk.white.bgRed(error));
+		console.log('please try again later');
+	})
 }
