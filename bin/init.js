@@ -14,28 +14,28 @@ module.exports = () => {
 
 	const package_files = [{
 		file_name: '.babelrc',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/.babelrc'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/.babelrc'
 	}, {
 		file_name: '.browserslistrc',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/.browserslistrc'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/.browserslistrc'
 	}, {
 		file_name: '.editorconfig',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/.editorconfig'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/.editorconfig'
 	}, {
 		file_name: '.eslintrc.json',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/.eslintrc.json'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/.eslintrc.json'
 	}, {
 		file_name: '.gitignore',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/.gitignore'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/.gitignore'
 	}, {
 		file_name: 'gulpfile.babel.js',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/gulpfile.babel.js'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/gulpfile.babel.js'
 	}, {
 		file_name: 'package.json',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/package.json'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/package.json'
 	}, {
 		file_name: 'config.json',
-		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/rebuild/config.json'
+		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/config.json'
 	}, ];
 
 	const spinner = ora(chalk.blue('1- Loading Package Files\n')).start();
