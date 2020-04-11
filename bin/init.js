@@ -58,5 +58,6 @@ module.exports = () => {
 	).catch(error => {
 		console.log(chalk.white.bgRed(error));
 		console.log('please try again later');
+		execa().cancel()
 	})
 }
