@@ -1,6 +1,6 @@
 {
 	"name": "wp-workflow",
-	"version": "0.0.3",
+	"version": "1.0.0",
 	"description": "Gulp workflow for WordPress development",
 	"main": "./bin/index.js",
 	"scripts": {

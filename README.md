@@ -1,5 +1,4 @@
-[![GitHub](https://img.shields.io/github/issues/mohamednajiub/wp-workflow?style=flat-square)](https://github.com/mohamednajiub/wp-workflow/issues/) [![GitHub](https://img.shields.io/github/forks/mohamednajiub/wp-workflow?style=social)](https://github.com/mohamednajiub/wp-workflow/network/members) [![GitHub](https://img.shields.io/github/license/mohamednajiub/wp-workflow?style=flat-square
-)](https://github.com/mohamednajiub/wp-workflow/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/issues/mohamednajiub/wp-workflow?style=flat-square)](https://github.com/mohamednajiub/wp-workflow/issues/) [![GitHub](https://img.shields.io/github/forks/mohamednajiub/wp-workflow?style=social)](https://github.com/mohamednajiub/wp-workflow/network/members) [![GitHub](https://img.shields.io/github/license/mohamednajiub/wp-workflow?style=flat-square)](https://github.com/mohamednajiub/wp-workflow/blob/master/LICENSE)
 
 # WP-Workflow
 
@@ -35,7 +34,8 @@ What WP-workflow can do?
 
 ## How to use
 
-1- `git clone https://github.com/mohamednajiub/wp-workflow.git`.
-2- `cd wp-workflow`.
-3- change project name and theme name variables in gulp file and save it.
+1- `npm install wp-workflow -g`
+2- go to you wp project directory
+2- run `wp-workflow`
+3- wait untill installing project and answer prompt questions
 4- run `npm start` and then start development.
