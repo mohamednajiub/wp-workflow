@@ -101,13 +101,6 @@ export const styles = () => {
 		.pipe(server.stream());
 }
 
-// export const copy_styles = () => {
-//     return src([
-//         `${styles_src}/base/normalize.css`,
-//         `${styles_src}/layout/bootstrap-grid.min.css`
-//     ]).pipe(dest(css_dest))
-// }
-
 /********** scripts function **********/
 export const scripts = () => {
 	return src(`${js_src}/main.js`, {
