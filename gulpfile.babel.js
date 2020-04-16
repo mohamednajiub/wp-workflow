@@ -60,15 +60,15 @@ let php_files = `${root}/**/*.php`;
 
 let styles_src = `${root}/src/sass`,
 	style_files = `${styles_src}/**/*.scss`,
-	css_dest = `${root}/css/`;
+	css_dest = `${root}/dest/css`;
 
 let js_src = `${root}/src/scripts`,
 	js_files = `${js_src}/**/*.js`,
-	js_dest = `${root}/js`;
+	js_dest = `${root}/dest/js`;
 
 let images_src = `${root}/src/images`,
 	image_files = `${images_src}/**/*.{jpg,jpeg,png,svg,gif}`,
-	images_dest = `${root}/images`;
+	images_dest = `${root}/dest/images`;
 
 /********** styles function **********/
 export const styles = () => {
