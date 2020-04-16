@@ -10,7 +10,7 @@ WP Workflow is a powerful Gulp workflow for making Developing WordPress themes e
 2- go to you wp project directory\
 3- run `wp-workflow`\
 4- wait untill installing project and answer prompt questions\
-5- run `npm start` and then start development.
+5- run `npm start` and then start development.\
 
 ## WP-Workflow Capabilities
 
