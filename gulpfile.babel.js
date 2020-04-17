@@ -107,7 +107,6 @@ export const styles = () => {
 		.pipe(gulpif(production, rename('main.min.css')))
 		.pipe(gulpif(production, dest(css_dest)))
 		.pipe(server.stream())
-		.pipe(server.notify('compiling styles completed'))
 }
 
 /********** scripts function **********/
@@ -219,6 +218,18 @@ export const del = (done) => {
 	return rmdirAsync('dest', done)
 }
 
+/********** copy unbundeled files **********/
+export const copy_min_css = () => {
+	return src([
+		`${styles_src}/**/*.min.css`,
+	]).pipe(dest(css_dest));
+}
+export const copy_min_js = () => {
+	return src([
+		`${js_src}/**/*.min.js`,
+	]).pipe(dest(js_dest));
+}
+
 /********** browser sync function **********/
 export const serve = (done) => {
 	server.init({
@@ -242,11 +253,13 @@ export const reload_fun = (done) => {
 /********** watch changes function **********/
 export const watchForChanges = () => {
 	watch(style_files, styles);
+	watch(styles_src, copy_min_css);
 	watch(js_files, series(scripts, reload_fun));
+	watch(js_src, copy_min_js);
 	watch(image_files, series(images, reload_fun));
 	watch(php_files, reload_fun);
 }
 
-export const dev = series(parallel(styles, images, scripts), serve, watchForChanges);
-export const build = series(del, parallel(styles, scripts, images));
+export const dev = series(parallel(styles, images, scripts, copy_min_css, copy_min_js), serve, watchForChanges);
+export const build = series(del, parallel(styles, scripts, images, copy_min_css, copy_min_js));
 export default dev;
