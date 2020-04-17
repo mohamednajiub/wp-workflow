@@ -37,6 +37,9 @@ import cleanCss from 'gulp-clean-css';
 import webpack from 'webpack-stream';
 // remove debugger and console.log from production
 import stripDebug from 'gulp-strip-debug';
+// remove debugger and console.log from production
+import named from 'vinyl-named';
+
 
 /********** images tools **********/
 import imagemin from 'gulp-imagemin';
@@ -109,9 +112,13 @@ export const styles = () => {
 
 /********** scripts function **********/
 export const scripts = () => {
-	return src(`${js_src}/main.js`, {
+	return src([
+			`${js_src}/main.js`,
+			`${js_src}/pages/**/*.js`
+		], {
 			allowEmpty: true
 		})
+		.pipe(named())
 		.pipe(webpack({
 			module: {
 				rules: [{
@@ -119,7 +126,7 @@ export const scripts = () => {
 					use: {
 						loader: 'babel-loader',
 						options: {
-							presets: []
+							presets: ['@babel/preset-env']
 						}
 					}
 				}]
@@ -127,8 +134,11 @@ export const scripts = () => {
 			mode: production ? 'production' : 'development',
 			devtool: !production ? 'source-map' : false,
 			output: {
-				filename: production ? 'main.bundle.min.js' : 'main.bundle.js'
+				filename: production ? `[name].bundle.min.js` : `[name].bundle.js`
 			},
+			externals: {
+				jquery: 'jQuery'
+			}
 		}))
 		.pipe(gulpif(production, stripDebug()))
 		.pipe(dest(js_dest));
