@@ -100,7 +100,8 @@ export const styles = () => {
 		})))
 		.pipe(gulpif(production, rename('main.min.css')))
 		.pipe(gulpif(production, dest(css_dest)))
-		.pipe(server.stream());
+		.pipe(server.stream())
+		.pipe(server.notify('compiling styles completed'))
 }
 
 /********** scripts function **********/
@@ -212,7 +213,10 @@ export const serve = (done) => {
 		snippetOptions: {
 			ignorePaths: ["wp-admin/**"]
 		},
-		port: config.server_port
+		port: config.server_port,
+		ui: {
+			port: config.server_port + 1
+		}
 	});
 	done();
 }
