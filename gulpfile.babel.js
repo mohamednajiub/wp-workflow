@@ -22,6 +22,8 @@ import rename from "gulp-rename";
 
 const config = require('./config.json');
 
+const fs = require('fs');
+
 /********** style tools **********/
 // gulp sass used to convert sass to css
 import sass from 'gulp-sass';
@@ -156,6 +158,53 @@ export const images = () => {
 		.pipe(dest(images_dest))
 }
 
+/********** remove dest to build function **********/
+
+let rmdirAsync = function (path, callback) {
+	fs.readdir(path, function (err, files) {
+		if (err) {
+			// Pass the error on to callback
+			callback(err, []);
+			return;
+		}
+		var wait = files.length,
+			count = 0,
+			folderDone = function (err) {
+				count++;
+				// If we cleaned out all the files, continue
+				if (count >= wait || err) {
+					fs.rmdir(path, callback);
+				}
+			};
+		// Empty directory to bail early
+		if (!wait) {
+			folderDone();
+			return;
+		}
+
+		// Remove one or more trailing slash to keep from doubling up
+		path = path.replace(/\/+$/, "");
+		files.forEach(function (file) {
+			var curPath = path + "/" + file;
+			fs.lstat(curPath, function (err, stats) {
+				if (err) {
+					callback(err, []);
+					return;
+				}
+				if (stats.isDirectory()) {
+					rmdirAsync(curPath, folderDone);
+				} else {
+					fs.unlink(curPath, folderDone);
+				}
+			});
+		});
+	});
+};
+
+export const del = (done) => {
+	return rmdirAsync('dest', done)
+}
+
 /********** browser sync function **********/
 export const serve = (done) => {
 	server.init({
@@ -182,5 +231,5 @@ export const watchForChanges = () => {
 }
 
 export const dev = series(parallel(styles, images, scripts), serve, watchForChanges);
-export const build = parallel(styles, scripts, images);
+export const build = series(del, parallel(styles, scripts, images));
 export default dev;
