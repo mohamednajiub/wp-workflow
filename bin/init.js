@@ -6,8 +6,6 @@ const execa = require('execa');
 const chalk = require('chalk');
 const https = require('https');
 
-
-
 module.exports = () => {
 
 	// Files to download
