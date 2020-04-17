@@ -74,7 +74,10 @@ let images_src = `${root}/src/images`,
 
 /********** styles function **********/
 export const styles = () => {
-	return src(`${styles_src}/main.scss`, {
+	return src([
+			`${styles_src}/main.scss`,
+			`${styles_src}/pages/**/*.scss`
+		], {
 			allowEmpty: true
 		})
 		.pipe(gulpif(!production, sourcemaps.init({
