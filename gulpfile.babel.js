@@ -104,7 +104,6 @@ export const styles = () => {
 		.pipe(gulpif(production, cleanCss({
 			compatibility: 'ie8'
 		})))
-		.pipe(gulpif(production, rename('main.min.css')))
 		.pipe(gulpif(production, dest(css_dest)))
 		.pipe(server.stream())
 }
@@ -133,7 +132,7 @@ export const scripts = () => {
 			mode: production ? 'production' : 'development',
 			devtool: !production ? 'source-map' : false,
 			output: {
-				filename: production ? `[name].bundle.min.js` : `[name].bundle.js`
+				filename: `[name].bundle.js`
 			},
 			externals: {
 				jquery: 'jQuery'
