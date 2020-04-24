@@ -91,13 +91,7 @@ export const styles = () => {
 			errLogToConsole: true
 		}).on('error', sass.logError))
 		.pipe(autoPrefixer({
-			grid: true,
-			browsers: [
-				'last 5 chrome version',
-				'last 5 firefox version',
-				'last 5 safari version',
-				'last 5 ie version'
-			]
+			grid: true
 		}))
 		.pipe(gulpif(!production, sourcemaps.write(`/`)))
 		.pipe(dest(css_dest))
