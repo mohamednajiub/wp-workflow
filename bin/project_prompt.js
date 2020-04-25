@@ -1,6 +1,6 @@
 const project_prompt = [{
-		name: 'project_name',
-		message: 'Project Name'
+		name: 'project_path',
+		message: 'Project Path'
 	},
 	{
 		name: 'theme_name',

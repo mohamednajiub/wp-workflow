@@ -17,8 +17,6 @@ import changed from 'gulp-changed';
 import browserSync from "browser-sync";
 // source map used to create source map files to css and js
 import sourcemaps from 'gulp-sourcemaps';
-// rename used to change name of files
-import rename from "gulp-rename";
 
 const config = require('./config.json');
 
@@ -55,7 +53,7 @@ let server = browserSync.create(),
 	reload = server.reload();
 
 /********** Theme initialization **********/
-let project_name = config.project_name;
+let project_path = config.project_path;
 
 let theme_name = config.theme_name;
 
@@ -91,20 +89,13 @@ export const styles = () => {
 			errLogToConsole: true
 		}).on('error', sass.logError))
 		.pipe(autoPrefixer({
-			grid: true,
-			browsers: [
-				'last 5 chrome version',
-				'last 5 firefox version',
-				'last 5 safari version',
-				'last 5 ie version'
-			]
+			grid: true
 		}))
 		.pipe(gulpif(!production, sourcemaps.write(`/`)))
 		.pipe(dest(css_dest))
 		.pipe(gulpif(production, cleanCss({
 			compatibility: 'ie8'
 		})))
-		.pipe(gulpif(production, rename('main.min.css')))
 		.pipe(gulpif(production, dest(css_dest)))
 		.pipe(server.stream())
 }
@@ -133,7 +124,7 @@ export const scripts = () => {
 			mode: production ? 'production' : 'development',
 			devtool: !production ? 'source-map' : false,
 			output: {
-				filename: production ? `[name].bundle.min.js` : `[name].bundle.js`
+				filename: `[name].bundle.js`
 			},
 			externals: {
 				jquery: 'jQuery'
@@ -233,7 +224,7 @@ export const copy_min_js = () => {
 /********** browser sync function **********/
 export const serve = (done) => {
 	server.init({
-		proxy: `http://localhost/${project_name}`,
+		proxy: `${project_path}`,
 		snippetOptions: {
 			ignorePaths: ["wp-admin/**"]
 		},

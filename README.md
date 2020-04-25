@@ -6,11 +6,16 @@ WP Workflow is a powerful Gulp workflow for making Developing WordPress themes e
 
 ## How to use
 
-1- `npm install wp-workflow -g`\
-2- go to you wp project directory\
-3- run `wp-workflow`\
-4- wait untill installing project and answer prompt questions\
-5- run `npm start` and then start development.\
+- for development:
+  1- `npm install wp-workflow -g`\
+  2- go to you wp project directory\
+  3- run `wp-workflow`\
+  4- wait untill installing project and answer prompt questions\
+  5- run `npm start` and then start development.\
+
+- for production\
+  1- Go to your theme directory.\
+  2- run `npm build`.
 
 ## WP-Workflow Capabilities
 
@@ -21,21 +26,51 @@ What WP-workflow can do?
 - convert sass to css.
 - add auto prefixes to css for last 5 versions of browsers.
 - create .map file for css if you are on development mode.
-- create .min file for css if you are in production mode.
+- minify css files when running build and remove .map files.
 
 ### JS Features
 
 - convert ES6 to ES5.
 - create .map file for JS if you are on development mode.
-- create .min file for JS if you are in production mode.
+- minify js files when running build and remove .map files.
 - remove console.log and debuggers from JS if you are in production mode.
 
 ### Images Features
 
 - compress static images.
-- move comppresed static images from src folder to the root folder.
+- move comppresed static images from src folder to images folder in dest.
 
 ### Live Server Features
 
 - open live server after finish all basic tasks "styles, scripts, images".
 - reload server if there is changes in any files or folder.
+
+### Project folder structure
+
+```
+localhost
+├── wordpress project
+│   └── wp-content
+│       ├── themes
+│       │   ├── theme name
+│       │   │   ├── dest
+│       │   │   │   ├── css
+│       │   │   │   │   └── compiled css files
+│       │   │   │   └── js
+│       │   │   │   |    └── compiled js files
+│       │   │   │   └── images
+│       │   │   │        └── compiled images
+│       │   │   ├── src
+│       │   │   │   ├── sass
+│       │   │   │   │   └── main.scss
+│       │   │   │   └── scripts
+│       │   │   │   |    └── main.js
+│       │   │   │   └── images
+│       │   │   │   |    └── image.png
+│       │   |   |── inc
+│       │   │   │   ├── php files
+│       │   |   ├── templates-parts
+│       │   |   │   └── php files
+│       │   |   └── wp templates
+│       └── index.php
+```
