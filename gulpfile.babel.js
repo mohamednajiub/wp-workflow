@@ -17,8 +17,6 @@ import changed from 'gulp-changed';
 import browserSync from "browser-sync";
 // source map used to create source map files to css and js
 import sourcemaps from 'gulp-sourcemaps';
-// rename used to change name of files
-import rename from "gulp-rename";
 
 const config = require('./config.json');
 
@@ -55,7 +53,7 @@ let server = browserSync.create(),
 	reload = server.reload();
 
 /********** Theme initialization **********/
-let project_name = config.project_name;
+let project_path = config.project_path;
 
 let theme_name = config.theme_name;
 
@@ -226,7 +224,7 @@ export const copy_min_js = () => {
 /********** browser sync function **********/
 export const serve = (done) => {
 	server.init({
-		proxy: `http://localhost/${project_name}`,
+		proxy: `${project_path}`,
 		snippetOptions: {
 			ignorePaths: ["wp-admin/**"]
 		},
