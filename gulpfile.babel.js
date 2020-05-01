@@ -38,7 +38,6 @@ import stripDebug from 'gulp-strip-debug';
 // remove debugger and console.log from production
 import named from 'vinyl-named';
 
-
 /********** images tools **********/
 import imagemin from 'gulp-imagemin';
 
@@ -221,6 +220,39 @@ export const copy_min_js = () => {
 	]).pipe(dest(js_dest));
 }
 
+/********** create zip file function **********/
+
+export const compress_project = (done) => {
+	// require modules
+	var archiver = require('archiver');
+
+	// create a file to stream archive data to.
+	var output = fs.createWriteStream(__dirname + `/${theme_name}.zip`);
+	var archive = archiver('zip', {
+		zlib: {
+			level: 9
+		}
+	});
+
+	// pipe archive data to the file
+	archive.pipe(output);
+
+	// append files from a sub-directory within the archive
+	archive.directory('dest/', 'dest');
+	archive.directory('fonts/', 'fonts');
+	archive.directory('inc/', 'inc');
+	archive.directory('template-parts/', 'template-parts');
+
+	// append files from a glob pattern
+	archive.glob('*.php');
+	archive.glob('*.png');
+	archive.glob('*.css');
+
+	archive.finalize();
+
+	done()
+}
+
 /********** browser sync function **********/
 export const serve = (done) => {
 	server.init({
@@ -252,5 +284,5 @@ export const watchForChanges = () => {
 }
 
 export const dev = series(parallel(styles, images, scripts, copy_min_css, copy_min_js), serve, watchForChanges);
-export const build = series(del, parallel(styles, scripts, images, copy_min_css, copy_min_js));
+export const build = series(del, parallel(styles, scripts, images, copy_min_css, copy_min_js), compress_project);
 export default dev;
