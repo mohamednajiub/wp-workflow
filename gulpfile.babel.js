@@ -220,6 +220,30 @@ export const copy_min_js = () => {
 	]).pipe(dest(js_dest));
 }
 
+/********** copy unbundeled files **********/
+
+export const build_inquirer = (done) => {
+	const inquirer = require('inquirer');
+	inquirer.prompt([{
+		type: 'list',
+		name: 'needZip',
+		message: 'Do you want to create Zip file!?',
+		choices: [{
+			key: 'yes',
+			value: "Yes, please!"
+		}, {
+			key: 'no',
+			value: "No, thanks. I don't need that option."
+		}]
+	}]).then((answers) => {
+		if (answers.needZip == 'Yes, please!') {
+			compress_project(done)
+		} else {
+			done()
+		}
+	})
+}
+
 /********** create zip file function **********/
 
 export const compress_project = (done) => {
@@ -284,5 +308,5 @@ export const watchForChanges = () => {
 }
 
 export const dev = series(parallel(styles, images, scripts, copy_min_css, copy_min_js), serve, watchForChanges);
-export const build = series(del, parallel(styles, scripts, images, copy_min_css, copy_min_js), compress_project);
+export const build = series(del, parallel(styles, scripts, images, copy_min_css, copy_min_js), build_inquirer);
 export default dev;
