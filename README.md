@@ -15,7 +15,7 @@ WP Workflow is a powerful Gulp workflow for making Developing WordPress themes e
 
 - for production\
   1- Go to your theme directory.\
-  2- run `npm build`.
+  2- run `npm run build`.
 
 ## WP-Workflow Capabilities
 
