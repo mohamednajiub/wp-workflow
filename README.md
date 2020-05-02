@@ -6,16 +6,16 @@ WP Workflow is a powerful Gulp workflow for making Developing WordPress themes e
 
 ## How to use
 
-- for development:
+- for development:\
   1- `npm install wp-workflow -g`\
   2- go to you wp project directory\
   3- run `wp-workflow`\
   4- wait untill installing project and answer prompt questions\
-  5- run `npm start` and then start development.\
+  5- run `npm start` and then start development.
 
 - for production\
   1- Go to your theme directory.\
-  2- run `npm build`.
+  2- run `npm run build`.
 
 ## WP-Workflow Capabilities
 
@@ -44,6 +44,15 @@ What WP-workflow can do?
 
 - open live server after finish all basic tasks "styles, scripts, images".
 - reload server if there is changes in any files or folder.
+
+### Create compressed file
+
+wp-workflow can compress your theme files and folders that you can publish it directly after finishing development
+
+- `npm run build`.
+- wait to finish bundling files
+- you will be asked for if you want zip file or not choose yes.
+- the compressed file will be created in project root.
 
 ### Project folder structure
 
