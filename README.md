@@ -38,7 +38,7 @@ What WP-workflow can do?
 ### Images Features
 
 - compress static images.
-- move comppresed static images from src folder to images folder in dest.
+- move compressed static images from src folder to images folder in dest.
 
 ### Live Server Features
 
