@@ -39,7 +39,8 @@ module.exports = (theme_name) => {
 
 
 	process.chdir(`${theme_name}`);
-	const spinner = ora(chalk.blue('1- Loading Package Files\n')).start();
+	const spinner = ora(chalk.blue('2- Loading Package Files\n'));
+	spinner.start();
 
 	Promise.all(package_files.map(file => {
 		let created_file = fs.createWriteStream(file.file_name);
@@ -48,11 +49,11 @@ module.exports = (theme_name) => {
 		});
 	})).then(
 		async () => {
-			spinner.succeed(chalk.green('package files downloaded\n'));
-			spinner.start(chalk.blue('2- installing npm packages\n'));
+			spinner.succeed(chalk.green('2- Package files downloaded\n'));
+			spinner.start(chalk.blue('3- installing npm packages\n'));
 			await execa('npm', ['install']);
-			spinner.succeed(chalk.green('installing packages finished successfully'));
-			console.log(chalk.blue('3- initializing project data\n'));
+			spinner.succeed(chalk.green('3- Installing packages finished successfully\n'));
+			console.log(chalk.blue('4- Set project data\n'));
 			const {
 				edit_config
 			} = require('./questions_handler');
