@@ -3,10 +3,11 @@
 const fs = require('fs');
 const ora = require('ora');
 const execa = require('execa');
+const process = require('process');
 const chalk = require('chalk');
 const https = require('https');
 
-module.exports = () => {
+module.exports = (theme_name) => {
 
 	// Files to download
 
@@ -36,6 +37,8 @@ module.exports = () => {
 		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/config.json'
 	}, ];
 
+
+	process.chdir(`${theme_name}`);
 	const spinner = ora(chalk.blue('1- Loading Package Files\n')).start();
 
 	Promise.all(package_files.map(file => {
@@ -50,8 +53,10 @@ module.exports = () => {
 			await execa('npm', ['install']);
 			spinner.succeed(chalk.green('installing packages finished successfully'));
 			console.log(chalk.blue('3- initializing project data\n'));
-			const init_data = require('./edit_config');
-			init_data()
+			const {
+				edit_config
+			} = require('./questions_handler');
+			edit_config()
 		}
 	).catch(error => {
 		console.log(chalk.white.bgRed(error));
