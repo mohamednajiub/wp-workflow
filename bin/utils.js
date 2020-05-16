@@ -17,14 +17,13 @@ const edit_config = (project_data) => {
 const creating_theme_folders = (theme_name) => {
 	fs.mkdirSync(theme_name);
 	let dirs = [
-		`${theme_name}/sass`,
-		`${theme_name}/sass/pages`,
-		`${theme_name}/sass/components`,
-		`${theme_name}/sass/animations`,
-		`${theme_name}/scripts`,
-		`${theme_name}/scripts/pages`,
-		`${theme_name}/scripts/components`,
-		`${theme_name}/images`
+		`${theme_name}/src`,
+		`${theme_name}/src/sass/pages`,
+		`${theme_name}/src/sass/components`,
+		`${theme_name}/src/sass/animations`,
+		`${theme_name}/src/scripts/pages`,
+		`${theme_name}/src/scripts/components`,
+		`${theme_name}/src/images`
 	]
 
 	dirs.forEach((dir) => {
