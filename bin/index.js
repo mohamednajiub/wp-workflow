@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
-const installer = require('./init');
+const {
+	basic_prompt
+} = require("./questions_handler");
 
-installer()
+basic_prompt();
