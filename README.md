@@ -6,16 +6,25 @@ WP Workflow is a powerful Gulp workflow for making Developing WordPress themes e
 
 ## How to use
 
-- for development:\
-  1- `npm install wp-workflow -g`\
-  2- go to you wp project directory\
+install wp-workflow package globally `npm install wp-workflow -g`
+
+- for development:
+
+  1- Go to your WP project `wp-content/themes`\
+  2- open terminal.\
   3- run `wp-workflow`\
   4- wait untill installing project and answer prompt questions\
   5- run `npm start` and then start development.
 
+<br>
+
 - for production\
   1- Go to your theme directory.\
   2- run `npm run build`.
+
+```
+need to work again on it! just run `npm start`
+```
 
 ## WP-Workflow Capabilities
 
@@ -24,20 +33,20 @@ What WP-workflow can do?
 ### CSS Features
 
 - convert sass to css.
-- add auto prefixes to css for last 5 versions of browsers.
+- add auto prefixes to css for last 5 versions of browsers "you can edit it in `.browsersistrc` file".
 - create .map file for css if you are on development mode.
-- minify css files when running build and remove .map files.
+- minify css files and remove .map files while building.
 
 ### JS Features
 
-- convert ES6 to ES5.
+- Compile ES6 to ES5.
 - create .map file for JS if you are on development mode.
-- minify js files when running build and remove .map files.
-- remove console.log and debuggers from JS if you are in production mode.
+- minify js files and remove .map files while building.
+- remove console.log and debuggers from JS while building the project.
 
 ### Images Features
 
-- compress static images.
+- Compress static images.
 - move compressed static images from src folder to images folder in dest.
 
 ### Live Server Features
@@ -47,12 +56,12 @@ What WP-workflow can do?
 
 ### Create compressed file
 
-wp-workflow can compress your theme files and folders that you can publish it directly after finishing development
+wp-workflow can prepare your theme for publishing by compressing it in a `.zip` file if you want to create that copressed file.
 
-- `npm run build`.
+- `npm run build --prod`.
 - wait to finish bundling files
-- you will be asked for if you want zip file or not choose yes.
-- the compressed file will be created in project root.
+- you will be asked for if you want zip file or not choose yes to create copmressd file, "the compressed file will be created in project root".
+- if you choose no, wp-workflow will only minify css, js, and images
 
 ### Project folder structure
 
