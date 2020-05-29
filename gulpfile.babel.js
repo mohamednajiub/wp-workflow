@@ -47,9 +47,7 @@ import imagemin from 'gulp-imagemin';
 const production = yargs.argv.prod;
 
 // create server
-let server = browserSync.create(),
-	// reload browsers
-	reload = server.reload();
+let server = browserSync.create();
 
 /********** Theme initialization **********/
 let project_path = config.project_path;
@@ -293,7 +291,7 @@ export const serve = (done) => {
 }
 
 export const reload_fun = (done) => {
-	reload;
+	server.reload();
 	done();
 };
 
