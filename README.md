@@ -6,6 +6,8 @@ WP Workflow is a powerful Gulp workflow for making Developing WordPress themes e
 
 ## How to use
 
+![Instructions](https://mohamednajiub.me/wp-content/uploads/2020/05/wp-instructions.gif)
+
 install wp-workflow package globally `npm install wp-workflow -g`
 
 - for development:
