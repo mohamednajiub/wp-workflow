@@ -47,9 +47,7 @@ import imagemin from 'gulp-imagemin';
 const production = yargs.argv.prod;
 
 // create server
-let server = browserSync.create(),
-	// reload browsers
-	reload = server.reload();
+let server = browserSync.create();
 
 /********** Theme initialization **********/
 let project_path = config.project_path;
@@ -163,49 +161,31 @@ export const images = () => {
 
 /********** remove dest to build function **********/
 
-let rmdirAsync = function (path, callback) {
-	fs.readdir(path, function (err, files) {
-		if (err) {
-			// Pass the error on to callback
-			callback(err, []);
-			return;
-		}
-		var wait = files.length,
-			count = 0,
-			folderDone = function (err) {
-				count++;
-				// If we cleaned out all the files, continue
-				if (count >= wait || err) {
-					fs.rmdir(path, callback);
-				}
-			};
-		// Empty directory to bail early
-		if (!wait) {
-			folderDone();
-			return;
-		}
+let rmDir = function (path, callback) {
 
-		// Remove one or more trailing slash to keep from doubling up
-		path = path.replace(/\/+$/, "");
-		files.forEach(function (file) {
-			var curPath = path + "/" + file;
-			fs.lstat(curPath, function (err, stats) {
-				if (err) {
-					callback(err, []);
-					return;
-				}
-				if (stats.isDirectory()) {
-					rmdirAsync(curPath, folderDone);
+	if (fs.existsSync(path)) {
+		const files = fs.readdirSync(path)
+
+		if (files.length > 0) {
+			files.forEach(function (filename) {
+				if (fs.statSync(path + "/" + filename).isDirectory()) {
+					rmDir(path + "/" + filename)
 				} else {
-					fs.unlink(curPath, folderDone);
+					fs.unlinkSync(path + "/" + filename)
 				}
-			});
-		});
-	});
+			})
+			fs.rmdirSync(path)
+		} else {
+			fs.rmdirSync(path)
+		}
+	} else {
+		console.log("Directory path not found.")
+	}
+	callback;
 };
 
 export const del = (done) => {
-	return rmdirAsync('dest', done)
+	return rmDir('dest', done())
 }
 
 /********** copy unbundeled files **********/
@@ -293,7 +273,7 @@ export const serve = (done) => {
 }
 
 export const reload_fun = (done) => {
-	reload;
+	server.reload();
 	done();
 };
 
