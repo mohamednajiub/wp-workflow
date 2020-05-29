@@ -3,10 +3,11 @@
 const fs = require('fs');
 const ora = require('ora');
 const execa = require('execa');
+const process = require('process');
 const chalk = require('chalk');
 const https = require('https');
 
-module.exports = () => {
+module.exports = (theme_name) => {
 
 	// Files to download
 
@@ -36,7 +37,10 @@ module.exports = () => {
 		file_path: 'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/config.json'
 	}, ];
 
-	const spinner = ora(chalk.blue('1- Loading Package Files\n')).start();
+
+	process.chdir(`${theme_name}`);
+	const spinner = ora(chalk.blue('2- Loading Package Files\n'));
+	spinner.start();
 
 	Promise.all(package_files.map(file => {
 		let created_file = fs.createWriteStream(file.file_name);
@@ -45,13 +49,15 @@ module.exports = () => {
 		});
 	})).then(
 		async () => {
-			spinner.succeed(chalk.green('package files downloaded\n'));
-			spinner.start(chalk.blue('2- installing npm packages\n'));
+			spinner.succeed(chalk.green('2- Package files downloaded\n'));
+			spinner.start(chalk.blue('3- installing npm packages\n'));
 			await execa('npm', ['install']);
-			spinner.succeed(chalk.green('installing packages finished successfully'));
-			console.log(chalk.blue('3- initializing project data\n'));
-			const init_data = require('./edit_config');
-			init_data()
+			spinner.succeed(chalk.green('3- Installing packages finished successfully\n'));
+			console.log(chalk.blue('4- Set project data\n'));
+			const {
+				edit_config
+			} = require('./questions_handler');
+			edit_config()
 		}
 	).catch(error => {
 		console.log(chalk.white.bgRed(error));
