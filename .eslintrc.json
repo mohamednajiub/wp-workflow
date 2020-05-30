@@ -1,19 +1,27 @@
 {
-    "env": {
+	"env": {
 		"browser": true,
 		"node": true,
 		"es6": true,
 		"commonjs": true
-    },
-    "extends": "eslint:recommended",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "rules": {
-    }
+	},
+	"extends": ["eslint:recommended", "prettier"],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"rules": {
+		"prettier/prettier": "error",
+		"semi": ["error", "always"],
+		"quotes": ["error", "single"],
+		"no-unused-vars": "warn",
+		"func-names": "off"
+	}
 }
