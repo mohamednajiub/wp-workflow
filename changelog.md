@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 -   Babel configuration file.
 -   eslint configuration file.
+-   README.md.
 
 ### Added
 
