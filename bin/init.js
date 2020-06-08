@@ -37,6 +37,11 @@ module.exports = (theme_name) => {
 				'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/.gitignore',
 		},
 		{
+			file_name: '.prettierrc.json',
+			file_path:
+				'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/.prettierrc.json',
+		},
+		{
 			file_name: 'gulpfile.babel.js',
 			file_path:
 				'https://raw.githubusercontent.com/mohamednajiub/wp-workflow/master/gulpfile.babel.js',
