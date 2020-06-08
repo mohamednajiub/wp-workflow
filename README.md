@@ -67,7 +67,7 @@ wp-workflow can prepare your theme for publishing by compressing it in a `.zip` 
 
 ### code formating and linting
 
-working with team in same project could be harder if you didn't put clean guides, and it goes harder while writing js without any hint that your code have errors so, wp-workflow work on solve these problems by using prettier to standarize code formating accross the project from developer to another, and by using editor config we try to unification the basic configuration from editor to another, and to make developing js is more easier and cool we use eslint to show errors and worning while writing your code.
+If you are working with team in the same project that could be harder if you didn't use clean code guides, and it goes more harder while writing js without any hints in your code and have errors so, wp-workflow foucus on solving these problems by using prettier to standardize the code formating accross the project from developer to another, and by using editor config we try to unificate the basic configurations from editor to another, and to make developing js more easier and prettier as we use eslint to show errors and worning while writing code.
 
 ### Project folder structure
 
@@ -76,34 +76,34 @@ localhost
 ├── wordpress project
 │   └── wp-content
 │       ├── themes
-|				|		|
+|		|	|
 │       │   └── theme name
-│       │			  ├── dest
-│       │			  │   ├── css
-│       │			  │   │   └── compiled css files
-│       │			  │   └── js
-│       │			  │   |    └── compiled js files
-│       │			  │   └── images
-│       │			  │        └── compiled images
-│       │			  ├── src
-│       │			  │   ├── sass
-│       │			  │   |			|── pages
-│       │			  │   |			|		└── files.scss
-│       │			  │   │			└── main.scss
-│       │			  │   ├── scripts
-│       │			  │   |			|── pages
-│       │			  │   |   	|		└── files.scss
-│       │			  │   |   	└── main.js
-│       │			  │   └── images
-│       │			  │   		└── image.png
-|				|				|
-│       │			  |── inc
-│       │			  │   └── php files
-|				|				|
-│       │			  ├── templates-parts
-│       │			  │   └── php files
-|				|				|
-│       │			  └── wp templates
-|				|
+│       │		├── dest
+│       │		│   ├── css
+│       │		│   │   └── compiled css files
+│       │		│   └── js
+│       │		│   |    └── compiled js files
+│       │		│   └── images
+│       │		│        └── compiled images
+│       │		├── src
+│       │		│   ├── sass
+│       │		│   |	|── pages
+│       │		│   |	|	└── files.scss
+│       │		│   │	└── main.scss
+│       │		│   ├── scripts
+│       │		│   |	|── pages
+│       │		│   |   |	└── files.scss
+│       │		│   |   └── main.js
+│       │		│   └── images
+│       │		│   	└── image.png
+|		|		|
+│       │		|── inc
+│       │		│   └── php files
+|		|		|
+│       │		├── templates-parts
+│       │		│   └── php files
+|		|		|
+│       │		└── wp templates
+|		|
 │       └── index.php
 ```
