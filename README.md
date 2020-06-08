@@ -2,7 +2,7 @@
 
 # WP-Workflow
 
-WP Workflow is a powerful Gulp workflow for making Developing WordPress themes easier and productivity ⌛.
+WP Workflow is a powerful Gulp workflow for making Developing WordPress themes easier and more productive ⌛.
 
 ## How to use
 
@@ -12,19 +12,20 @@ install wp-workflow package globally `npm install wp-workflow -g`
 
 - for development:
 
-  1- Go to your WP project `wp-content/themes`\
-  2- open terminal.\
-  3- run `wp-workflow`\
-  4- wait untill installing project and answer prompt questions\
-  5- run `npm start` and then start development.
+    1- Go to your WP project `wp-content/themes`\
+    2- open terminal.\
+    3- run `wp-workflow`\
+    4- wait untill installing project and answer prompt questions\
+    5- run `npm start` and then start development.
 
-<br>
+<br/>
 
 - for production\
-  1- Go to your theme directory.\
-  2- run `npm run build`.
+    1- Go to your theme directory.\
+    2- run `npm run build`.
 
 ```
+
 need to work again on it! just run `npm start`
 ```
 
@@ -41,7 +42,7 @@ What WP-workflow can do?
 
 ### JS Features
 
-- Compile ES6 to ES5.
+- Compile ES6, and beyond to ES5.
 - create .map file for JS if you are on development mode.
 - minify js files and remove .map files while building.
 - remove console.log and debuggers from JS while building the project.
@@ -63,7 +64,11 @@ wp-workflow can prepare your theme for publishing by compressing it in a `.zip` 
 - `npm run build --prod`.
 - wait to finish bundling files
 - you will be asked for if you want zip file or not choose yes to create copmressd file, "the compressed file will be created in project root".
-- if you choose no, wp-workflow will only minify css, js, and images
+- if you choose no, wp-workflow will only minify css, js, and images.
+
+### code formating and linting
+
+If you are working with team in the same project that could be harder if you didn't use clean code guides, and it goes more harder while writing js without any hints in your code and have errors so, wp-workflow foucus on solving these problems by using prettier to standardize the code formating accross the project from developer to another, and by using editor config we try to unificate the basic configurations from editor to another, and to make developing js more easier and prettier as we use eslint to show errors and worning while writing code.
 
 ### Project folder structure
 
@@ -72,25 +77,44 @@ localhost
 ├── wordpress project
 │   └── wp-content
 │       ├── themes
-│       │   ├── theme name
-│       │   │   ├── dest
-│       │   │   │   ├── css
-│       │   │   │   │   └── compiled css files
-│       │   │   │   └── js
-│       │   │   │   |    └── compiled js files
-│       │   │   │   └── images
-│       │   │   │        └── compiled images
-│       │   │   ├── src
-│       │   │   │   ├── sass
-│       │   │   │   │   └── main.scss
-│       │   │   │   └── scripts
-│       │   │   │   |    └── main.js
-│       │   │   │   └── images
-│       │   │   │   |    └── image.png
-│       │   |   |── inc
-│       │   │   │   ├── php files
-│       │   |   ├── templates-parts
-│       │   |   │   └── php files
-│       │   |   └── wp templates
+│       │   └── theme name
+│       │       ├── dest
+|       |       |   ├── css
+|       |       |   |   └──compiled css files
+|       |       |   |── js
+|       |       |   |   └── compiled js files
+|       |       |   └── images
+|       |       |       └── compiled images
+│       |       ├── src
+│       |       |   |──sass
+│       |       |   |   |── animations
+|       |       |   |   |   └── files.scss
+│       |       |   |   |── base
+|       |       |   |   |   └── files.scss
+│       |       |   |   |── components
+|       |       |   |   |   |── pages
+|       |       |   |   |   |   └── files.scss
+|       |       |   |   |   └── files.scss
+│       |       |   |   |── pages
+|       |       |   |   |   └── files.scss
+|       |       |   |   └── main.scss
+|       |       |   ├── scripts
+│       |       |   |   |── components
+|       |       |   |   |   |── pages
+|       |       |   |   |   |   └── files.js
+|       |       |   |   |   └── files.js
+|       |       |   |   |── pages
+|       |       |   |   |   └── files.js
+|       |       |   |   └── main.js
+|       |       |   └── images
+|       |       |       └── image.png
+|       |       ├── inc
+|       |       |   └── php files
+|       |       |
+|       |       ├── templates-parts
+|       |       |   └── php files
+|       |       |
+|       |       └── wp templates
+|       |
 │       └── index.php
 ```
