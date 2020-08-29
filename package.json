@@ -31,7 +31,7 @@
 		"@babel/preset-env": "^7.9.0",
 		"@babel/register": "^7.9.0",
 		"babel-loader": "^8.1.0",
-		"browser-sync": "^2.26.7",
+		"browser-sync": "^2.26.12",
 		"chalk": "^4.0.0",
 		"core-js": "^3.6.5",
 		"execa": "^4.0.0",
