@@ -11,5 +11,6 @@
 		"src": "src/scripts",
 		"compiled_files": ["/main.js", "/pages/**/*.js"],
 		"lib": "/lib/**/*.min.js"
-	}
+	},
+	"images": "src/images/**/*"
 }
