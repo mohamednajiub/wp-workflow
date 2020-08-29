@@ -1,5 +1,15 @@
 {
 	"project_path": "test",
 	"theme_name": "test",
-	"server_port": 2000
+	"server_port": 2000,
+	"styles": {
+		"src": "src/sass",
+		"compiled_files": ["/main.scss", "/pages/**/*.scss"],
+		"lib": "/lib/**/*.min.css"
+	},
+	"scripts": {
+		"src": "src/scripts",
+		"compiled_files": ["/main.js", "/pages/**/*.js"],
+		"lib": "/lib/**/*.min.js"
+	}
 }
