@@ -3,16 +3,22 @@
 	"theme_name": "test",
 	"server_port": 2000,
 	"styles": {
-		"src": "src/sass",
-		"compiled_files": ["/main.scss", "/pages/**/*.scss"],
+		"src": "/src/sass",
+		"compiled_files": [
+			"/main.scss",
+			"/pages/**/*.scss"
+		],
 		"lib": "/lib/**/*.min.css"
 	},
 	"scripts": {
-		"src": "src/scripts",
-		"compiled_files": ["/main.js", "/pages/**/*.js"],
+		"src": "/src/scripts",
+		"compiled_files": [
+			"/main.js",
+			"/pages/**/*.js"
+		],
 		"lib": "/lib/**/*.min.js"
 	},
-	"images": "src/images/**/*",
+	"images": "/src/images/**/*",
 	"archive_folders": [
 		{
 			"dir_path": "dest/",
@@ -31,5 +37,9 @@
 			"dest_path": "template-parts"
 		}
 	],
-	"archive_files": ["*.php", "*.png", "*.css"]
+	"archive_files": [
+		"*.php",
+		"*.png",
+		"*.css"
+	]
 }
