@@ -12,5 +12,24 @@
 		"compiled_files": ["/main.js", "/pages/**/*.js"],
 		"lib": "/lib/**/*.min.js"
 	},
-	"images": "src/images/**/*"
+	"images": "src/images/**/*",
+	"archive_folders": [
+		{
+			"dir_path": "dest/",
+			"dest_path": "dest"
+		},
+		{
+			"dir_path": "fonts/",
+			"dest_path": "fonts"
+		},
+		{
+			"dir_path": "inc/",
+			"dest_path": "inc"
+		},
+		{
+			"dir_path": "template-parts/",
+			"dest_path": "template-parts"
+		}
+	],
+	"archive_files": ["*.php", "*.png", "*.css"]
 }
