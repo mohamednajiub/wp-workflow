@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.0] - 2020-09-28
+
+### Updated
+
+- Create theme directories while creating theme.
+- Browsersync package number from ^2.26.7 to ^2.26.12.
+- README.md.
+
+### Added
+
+- Theme folders and files in config file.
+
+### Fix
+
+- Performance while developing theme in compiling Sass to css, ES6 & Beyong to ES5 and adding a new static images.
+
 ## [2.3.2] - 2020-06-08
 
 ### update

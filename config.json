@@ -1,5 +1,45 @@
 {
 	"project_path": "test",
 	"theme_name": "test",
-	"server_port": 2000
+	"server_port": 2000,
+	"styles": {
+		"src": "/src/sass",
+		"compiled_files": [
+			"/main.scss",
+			"/pages/**/*.scss"
+		],
+		"lib": "/lib/**/*.min.css"
+	},
+	"scripts": {
+		"src": "/src/scripts",
+		"compiled_files": [
+			"/main.js",
+			"/pages/**/*.js"
+		],
+		"lib": "/lib/**/*.min.js"
+	},
+	"images": "/src/images/**/*",
+	"archive_folders": [
+		{
+			"dir_path": "dest/",
+			"dest_path": "dest"
+		},
+		{
+			"dir_path": "fonts/",
+			"dest_path": "fonts"
+		},
+		{
+			"dir_path": "inc/",
+			"dest_path": "inc"
+		},
+		{
+			"dir_path": "template-parts/",
+			"dest_path": "template-parts"
+		}
+	],
+	"archive_files": [
+		"*.php",
+		"*.png",
+		"*.css"
+	]
 }
