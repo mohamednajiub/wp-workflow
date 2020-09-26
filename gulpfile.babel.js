@@ -16,6 +16,8 @@ const config = require('./config.json');
 
 const fs = require('fs');
 
+const path = require('path');
+
 /********** style tools **********/
 // gulp sass used to convert sass to css
 import sass from 'gulp-sass';
@@ -51,23 +53,29 @@ let root = `../${theme_name}`;
 
 let php_files = `${root}/**/*.php`;
 
-let styles_src = `${root}/src/sass`,
+let styles_src = `${root}${config.styles.src}`,
 	style_files = `${styles_src}/**/*.scss`,
 	css_dest = `${root}/dest/css`;
 
-let js_src = `${root}/src/scripts`,
+let js_src = `${root}${config.scripts.src}`,
 	js_files = `${js_src}/**/*.js`,
 	js_dest = `${root}/dest/js`;
 
-let images_src = `${root}/src/images`,
+let images_src = `${root}${config.images}`,
 	image_files = `${images_src}/**/*.{jpg,jpeg,png,svg,gif}`,
 	images_dest = `${root}/dest/images`;
 
 /********** styles function **********/
 export const styles = () => {
-	return src([`${styles_src}/main.scss`, `${styles_src}/pages/**/*.scss`], {
+	let files = [];
+	config.styles.compiled_files.map((file) => {
+		let file_path = path.resolve(styles_src + file);
+		files.push(file_path);
+	});
+	return src(files, {
 		allowEmpty: true,
 	})
+		.pipe(changed(css_dest, { extension: '.css' }))
 		.pipe(
 			gulpif(
 				!production,
@@ -87,7 +95,7 @@ export const styles = () => {
 				grid: true,
 			})
 		)
-		.pipe(gulpif(!production, sourcemaps.write(`/`)))
+		.pipe(gulpif(!production, sourcemaps.write('/')))
 		.pipe(dest(css_dest))
 		.pipe(
 			gulpif(
@@ -103,9 +111,15 @@ export const styles = () => {
 
 /********** scripts function **********/
 export const scripts = () => {
-	return src([`${js_src}/main.js`, `${js_src}/pages/**/*.js`], {
+	let files = [];
+	config.scripts.compiled_files.map((file) => {
+		let file_path = path.resolve(js_src + file);
+		files.push(file_path);
+	});
+	return src(files, {
 		allowEmpty: true,
 	})
+		.pipe(changed(css_dest, { extension: '.js' }))
 		.pipe(named())
 		.pipe(
 			webpack({
@@ -125,7 +139,7 @@ export const scripts = () => {
 				mode: production ? 'production' : 'development',
 				devtool: !production ? 'source-map' : false,
 				output: {
-					filename: `[name].bundle.js`,
+					filename: '[name].bundle.js',
 				},
 				externals: {
 					jquery: 'jQuery',
@@ -138,7 +152,7 @@ export const scripts = () => {
 
 /********** images function **********/
 export const images = () => {
-	return src(`${images_src}/**/*`)
+	return src(images_src)
 		.pipe(changed(images_dest))
 		.pipe(
 			imagemin([
@@ -196,11 +210,15 @@ export const del = (done) => {
 };
 
 /********** copy unbundeled files **********/
-export const copy_min_css = () => {
-	return src([`${styles_src}/**/*.min.css`]).pipe(dest(css_dest));
+export const copy_css_lib = () => {
+	return src([`${styles_src}${config.styles.lib}`])
+		.pipe(changed(`${css_dest}/lib`, { extension: '.min.css' }))
+		.pipe(dest(css_dest));
 };
-export const copy_min_js = () => {
-	return src([`${js_src}/**/*.min.js`]).pipe(dest(js_dest));
+export const copy_js_lib = () => {
+	return src([`${js_src}${config.styles.lib}`])
+		.pipe(changed(`${js_dest}/lib`, { extension: '.min.js' }))
+		.pipe(dest(js_dest));
 };
 
 /********** copy unbundeled files **********/
@@ -220,6 +238,7 @@ export const build_inquirer = (done) => {
 					},
 					{
 						key: 'no',
+						// eslint-disable-next-line quotes
 						value: "No, thanks. I don't need that option.",
 					},
 				],
@@ -251,16 +270,14 @@ export const compress_project = (done) => {
 	// pipe archive data to the file
 	archive.pipe(output);
 
-	// append files from a sub-directory within the archive
-	archive.directory('dest/', 'dest');
-	archive.directory('fonts/', 'fonts');
-	archive.directory('inc/', 'inc');
-	archive.directory('template-parts/', 'template-parts');
+	config.archive_folders.map((folder) => {
+		archive.directory(folder.dir_path, folder.dest_path);
+	});
 
 	// append files from a glob pattern
-	archive.glob('*.php');
-	archive.glob('*.png');
-	archive.glob('*.css');
+	config.archive_files.map((file) => {
+		archive.glob(file);
+	});
 
 	archive.finalize();
 
@@ -290,21 +307,21 @@ export const reload_fun = (done) => {
 /********** watch changes function **********/
 export const watchForChanges = () => {
 	watch(style_files, styles);
-	watch(styles_src, copy_min_css);
+	watch(`${styles_src}${config.styles.lib}`, copy_css_lib);
 	watch(js_files, series(scripts, reload_fun));
-	watch(js_src, copy_min_js);
+	watch(`${js_src}${config.styles.lib}`, copy_js_lib);
 	watch(image_files, series(images, reload_fun));
 	watch(php_files, reload_fun);
 };
 
 export const dev = series(
-	parallel(styles, images, scripts, copy_min_css, copy_min_js),
+	parallel(styles, images, scripts, copy_css_lib, copy_js_lib),
 	serve,
 	watchForChanges
 );
 export const build = series(
 	del,
-	parallel(styles, scripts, images, copy_min_css, copy_min_js),
+	parallel(styles, scripts, images, copy_css_lib, copy_js_lib),
 	build_inquirer
 );
 export default dev;
